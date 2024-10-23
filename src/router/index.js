@@ -12,13 +12,14 @@ import partidoJugador from '../views/partido_jugador.vue'
 import equipoPartido from '../views/equipo_partido.vue'
 import armaPartido from '../views/armaPartido.vue'
 import resultadoPartido from '../views/resultadoPartido.vue'
+import LayoutMain from '../components/LayoutMain.vue'
 
 const routes=[
 
     {
         path:"/",
         name:"home",
-        component:inicio 
+        component:LayoutMain 
     },
 
     {
