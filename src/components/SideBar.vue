@@ -38,7 +38,7 @@
     </el-row>
 </template>
   
-<script lang="ts" setup>
+<script setup>
   import {
     Document,
     Menu as IconMenu,
