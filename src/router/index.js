@@ -1,5 +1,6 @@
 import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router' 
-import ejemplo from '../views/ejemplo.vue'
+import pais from '../views/paises.vue'
+import ejemplo from '../views/ejemplo/ejemplo.vue'
 import inicio from '../views/inicio.vue'
 import fisicas from '../views/pFisicas.vue'
 import tecnicas from '../views/pTecnicas.vue'
@@ -14,6 +15,7 @@ import armaPartido from '../views/armaPartido.vue'
 import resultadoPartido from '../views/resultadoPartido.vue'
 import LayoutMain from '../components/LayoutMain.vue'
 
+
 const routes=[
 
     {
@@ -26,6 +28,12 @@ const routes=[
         path:"/cargos",
         name:"cargos",
         component:ejemplo
+    },
+
+    {
+        path:"/pais",
+        name:"Pais",
+        component:pais
     },
 
     {
