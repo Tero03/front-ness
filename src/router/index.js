@@ -1,8 +1,8 @@
 import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router' 
-import pais from '../views/paises.vue'
+import pais from '../views/paises/paises.vue'
 import ejemplo from '../views/ejemplo/ejemplo.vue'
 import inicio from '../views/inicio.vue'
-import fisicas from '../views/pFisicas.vue'
+import fisicas from '../views/pFisicas/pFisicas.vue'
 import tecnicas from '../views/pTecnicas.vue'
 import grupo from '../views/pGrupo.vue'
 import psicologica from '../views/Psicologico.vue'
@@ -58,12 +58,6 @@ const routes=[
         path:"/pGrupo",
         name:"pruebGrupo",
         component:grupo
-    },
-
-    {
-        path:"/pTecnicas",
-        name:"pruebTecnicas",
-        component:tecnicas
     },
 
     {

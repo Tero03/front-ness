@@ -1,24 +1,21 @@
 <script setup>
 import  NavBar from './NavBar.vue' 
 import  SideBarMenu from './SideBar.vue' 
-
-
 </script>
 
 <template>
-    <div>
-        
-    </div>
-    <el-container style="height: 100vh;">
+
+    <el-container style="height: 190vh;">
     <el-header>
             <NavBar />
     </el-header>
+
     <el-container>
-            <el-aside width="400px">
+            <el-aside width="190px">
                 <SideBarMenu />
             </el-aside>
 
-        <el-main>
+        <el-main class="main-content">
             <slot name="slotLayout"> </slot>
             <slot name="slotLayout2"> </slot>
         </el-main>
@@ -31,11 +28,16 @@ import  SideBarMenu from './SideBar.vue'
 <style scoped>
 
 .el-header{
-    padding: 0;
+    padding:0px;
+    height:51px;
 }
 
-.el-container{
-    display: flex;
+.el-aside{
+    background-color:#f4f4f4;
+}
+
+.main-content{
+    position:relative;
 }
 
 </style>

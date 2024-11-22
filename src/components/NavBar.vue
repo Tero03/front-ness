@@ -1,6 +1,7 @@
 <template>
   <el-menu
-    :default-active="activeIndex"
+    router
+    :default-active="$route.path"
     background-color="#171717"
     text-color="#E2E2E2"
     class="el-menu-demo"
@@ -11,8 +12,10 @@
 
     <el-sub-menu index="0">
       <template #title>Usuario</template>
-      <el-menu-item index="1-1">Perfil</el-menu-item>
-      <el-menu-item index="1-2">Cerrar sesion</el-menu-item>
+      <el-menu-item index="jugador">Perfil</el-menu-item>
+      <el-menu-item index="armaPartido">Armar partido</el-menu-item>
+      <el-menu-item index="equipo">Mi equipo</el-menu-item>
+      <el-menu-item index="/">Cerrar sesion</el-menu-item>
     </el-sub-menu>
     <el-sub-menu index="3" :popper-offset="8">
       <template #title>Override Popper Offset</template>
@@ -44,9 +47,11 @@
   .el-menu-demo{
     position:fixed;
     top:0px;
+    margin-bottom:0px;
     left:0px;
     box-sizing:border-box;
     width:100%;
     z-index:10;
   }
+
 </style>
