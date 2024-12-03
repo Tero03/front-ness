@@ -2,7 +2,8 @@
     <el-row class="tac">
       <el-col :span="12">
         <el-menu
-          default-active="1"
+          router
+          :default-active="$route.path"
           background-color="#212121"
           text-color="#E2E2E2"
           class="el-menu-vertical-demo"
@@ -11,24 +12,38 @@
           <el-sub-menu index="1">
             <template #title>
               <el-icon><location /></el-icon>
-              <span>Administrador</span>
+              <span>Testing</span>
             </template>
             
-            <el-menu-item index="1-2">Personas</el-menu-item>
-            <el-menu-item index="1-3">Cargos</el-menu-item>
-            <el-menu-item index="1-4">Paises</el-menu-item>
+            <el-menu-item index="cargos">Cargos</el-menu-item>
+            <el-menu-item index="pais">Paises</el-menu-item>
 
             </el-sub-menu>
 
             <el-sub-menu index="2">
+            <template #title>
+              <el-icon><location /></el-icon>
+              <span>Pruebas</span>
+            </template>
+            
+            <el-menu-item index="ResultadoPruebas">Resultados generales</el-menu-item>
+            <el-menu-item index="pFisicas">Pruebas fisicas</el-menu-item>
+            <el-menu-item index="pTecnicas">Pruebas tecnicas</el-menu-item>
+            <el-menu-item index="pGrupo">Pruebas grupales</el-menu-item>
+            <el-menu-item index="examPsicologico">Examen psicologico</el-menu-item>
+
+            </el-sub-menu>
+
+            <el-sub-menu index="3">
               <template #title>
                 <el-icon><location/></el-icon>
-                <span>Configuracion</span>
+                <span>Mis datos</span>
               </template>
+              <el-menu-item index="equipo">Mi equipo</el-menu-item>
+              <el-menu-item index="resultadoPartido">Mis juegos</el-menu-item>
+              <el-menu-item index="jugadorPartido">Partidos pendientes</el-menu-item>
+              <el-menu-item index="equipoPartido">Partidos de mi equipo</el-menu-item>
 
-              <el-menu-item index="2-2">Personas</el-menu-item>
-              <el-menu-item index="2-3">Cargos</el-menu-item>
-              <el-menu-item index="2-4">Paises</el-menu-item>
             </el-sub-menu>
 
         </el-menu>

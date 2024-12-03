@@ -3,19 +3,19 @@
     <template #slotLayout> 
 
       <Header 
-      :titulo="'Ejemplo'" 
-      :tituloBoton="'Crear cargo'"
+      :titulo="'pruebas fisicas'" 
+      :tituloBoton="'ejercicios'"
       :abrir="abrirFormulario">
       
       </Header>
 
-      <Formulario :titulo="'titulo del formulario'" v-model:is-open="showForm" :is-edit="formEditing">
+      <Formulario :titulo="'Ejercicios fisicos'" v-model:is-open="showForm" :is-edit="formEditing">
         
         <template #slotForm>
           <el-row :gutter="20">
             <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 
-          <formEjemplo v-model:is-open="showForm" :is-edit="formEditing"/>
+          <formFisico v-model:is-open="showForm" :is-edit="formEditing"/>
 
             </el-col>
           </el-row>
@@ -46,7 +46,7 @@
   import LayoutMain from '../../components/LayoutMain.vue'
   import Header from '../../components/Header.vue'
   import Formulario from '../../components/Formulario.vue'
-  import formEjemplo from './components/formEjemplo.vue'
+  import formFisico from './components/formFisico.vue'
   import {Delete,Edit} from "@element-plus/icons-vue"
 
   const showForm=ref(false)
@@ -73,22 +73,7 @@
     name: 'Oscar',
     address: 'No. 189, Grove St, Los Angeles',
     phone: '320 321 4560',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
+  }
 ]
   
   </script>
