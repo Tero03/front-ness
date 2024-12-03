@@ -34,7 +34,7 @@ const btnTitle = computed(()=>(props.isEdit ? 'Actualizar' : 'Guardar'))
 
 const isVisible= computed(()=> props.isOpen)
 
-const $emit= defineEmits(['update:is-open'])
+const $emit= defineEmits(['update:is-open', 'save', 'update'])
 
 const goBack= ()=> {
     $emit('update:is-open', false); 

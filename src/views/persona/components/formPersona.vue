@@ -110,21 +110,19 @@ const formClear = () => {
 };
 
 const validateForm = () => {
-  
-  return new Promise ((resolve)=>{
-    formRef.value?.validate((valid)=>{
-      if(valid){
-        resolve(true)
-      }else{
-        resolve(false)
+  return new Promise((resolve) => {
+    formRef.value?.validate((valid) => {
+      if (valid) {
+        resolve(true);
+      } else {
+        resolve(false);
       }
-    })
-  })
+    });
+  });
 };
 
-defineExpose({validateForm, form, formClear });
+defineExpose({ validateForm, form, formClear });
 </script>
-
 
 <style scoped>
 .formBox {

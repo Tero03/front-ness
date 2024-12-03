@@ -3,19 +3,19 @@
       <template #slotLayout> 
   
         <Header 
-        :titulo="'paises'" 
-        :tituloBoton="'Añadir pais'"
+        :titulo="'registro de personas'" 
+        :tituloBoton="'Registrar persona'"
         :abrir="abrirFormulario">
         
         </Header>
   
-        <Formulario :titulo="'titulo del formulario'" v-model:is-open="showForm" :is-edit="formEditing" @save="saveData">
+        <Formulario :titulo="'Registrar persona'" v-model:is-open="showForm" :is-edit="formEditing" @save="saveData">
           
           <template #slotForm>
             <el-row :gutter="20">
               <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
   
-            <formPaises 
+            <formPersona
             v-model:is-open="showForm" 
             :is-edit="formEditing"
             ref="formRef"
@@ -53,7 +53,7 @@
     import LayoutMain from '../../components/LayoutMain.vue';
     import Header from '../../components/Header.vue';
     import Formulario from '../../components/Formulario.vue';
-    import formPaises from './components/formPaises.vue';
+    import formPersona from './components/formPersona.vue';
     import axios from 'axios';
   
     const showForm=ref(false)

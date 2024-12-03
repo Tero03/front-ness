@@ -2,10 +2,10 @@ import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
 import pais from '../views/paises/paises.vue'
 import ejemplo from '../views/ejemplo/ejemplo.vue'
 import inicio from '../views/inicio.vue'
-import fisicas from '../views/pFisicas/pFisicas.vue'
-import tecnicas from '../views/pTecnicas.vue'
-import grupo from '../views/pGrupo.vue'
-import psicologica from '../views/Psicologico.vue'
+import pFisicas from '../views/pFisicas/pFisicas.vue'
+import pTecnicas from '../views/pTecnicas/pTecnicas.vue'
+import pGrupo from '../views/pGrupo/pGrupo.vue'
+import psicologica from '../views/psicologica/Psicologico.vue'
 import nexoPruebas from '../views/rPruebas.vue'
 import jugadors from '../views/jugador.vue'
 import equipos from '../views/equipo.vue'
@@ -13,7 +13,9 @@ import partidoJugador from '../views/partido_jugador.vue'
 import equipoPartido from '../views/equipo_partido.vue'
 import armaPartido from '../views/armaPartido.vue'
 import resultadoPartido from '../views/resultadoPartido.vue'
+import persona from '../views/persona/persona.vue'
 import LayoutMain from '../components/LayoutMain.vue'
+
 
 
 const routes=[
@@ -45,19 +47,19 @@ const routes=[
     {
         path:"/pFisicas",
         name:"pruebFisicas",
-        component:fisicas
+        component:pFisicas
     },
 
     {
         path:"/pTecnicas",
         name:"pruebTecnicas",
-        component:tecnicas
+        component:pTecnicas
     },
 
     {
         path:"/pGrupo",
         name:"pruebGrupo",
-        component:grupo
+        component:pGrupo
     },
 
     {
@@ -100,6 +102,12 @@ const routes=[
         path:"/resultadoPartido",
         name:"resultadosPartido",
         component:resultadoPartido
+    },
+
+    {
+        path:"/registro",
+        name:"registrarPersona",
+        component:persona
     }
 
 ]
