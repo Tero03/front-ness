@@ -9,7 +9,8 @@
         
         </Header>
   
-        <Formulario :titulo="'Registrar persona'" v-model:is-open="showForm" :is-edit="formEditing" @save="saveData">
+        <Formulario :titulo="'Registrar persona'" v-model:is-open="showForm" 
+        :is-edit="formEditing" @save="saveData" @update="actualizarDatos">
           
           <template #slotForm>
             <el-row :gutter="20">
@@ -19,7 +20,7 @@
             v-model:is-open="showForm" 
             :is-edit="formEditing"
             ref="formRef"
-            
+            :dataValue="dataPersonById"
             />
   
               </el-col>
@@ -27,14 +28,16 @@
           </template>
         </Formulario>
   
-          <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column prop="name" label="Nombre" width="180" />
-            <el-table-column prop="address" label="Direccion" width="180" />
-            <el-table-column prop="phone" label="Telefono" />
+          <el-table :data="personaTabla" stripe style="width: 100%">
+            <el-table-column prop="nombre" label="Nombre" width="180" />
+            <el-table-column prop="apellido" label="Apellido" width="180" />
+            <el-table-column prop="edad" label="Edad" />
+            <el-table-column prop="peso" label="Peso" />
+            <el-table-column prop="altura" label="Altura" />
             <el-table-column fixed="right" label="Acciones" min-width="120">
-              <template #default>
-                <el-button link type="primary" size="large" :icon="Edit" @click="editForm">Actualizar</el-button>
-                <el-button link type="danger" :icon="Delete"> Eliminar</el-button>
+              <template #default="registro">
+                <el-button link type="primary" size="large" :icon="Edit" @click="editForm(registro.row.id)">Actualizar</el-button>
+                <el-button link type="danger" :icon="Delete" @click="deletePerson(registro.row.id)"> Eliminar</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -47,9 +50,9 @@
     
     <script setup>
   
-    import {reactive, ref} from 'vue';
+    import { onMounted, reactive, ref, watch } from 'vue'
     import {Delete,Edit} from "@element-plus/icons-vue";
-    import {ElMessage} from 'element-plus'
+    import {ElMessage, ElMessageBox} from 'element-plus'
     import LayoutMain from '../../components/LayoutMain.vue';
     import Header from '../../components/Header.vue';
     import Formulario from '../../components/Formulario.vue';
@@ -59,6 +62,9 @@
     const showForm=ref(false)
     const formEditing=ref(false)
     const formRef=ref()
+    const dataPersonById=ref()
+    const datosPersona=ref([])
+    const personaTabla=ref([])
     
     const abrirFormulario=()=>{
       formEditing.value=false
@@ -70,46 +76,30 @@
       showHeader.value=true
     }
   
-    const editForm= async()=>{
+    const editForm= async(id)=>{
+      dataPersonById.value= await dataById(id);
       showForm.value=true
       formEditing.value=true
     }
-    
-  
-    const tableData = [
-    {
-      name: 'Oscar',
-      address: 'No. 189, Grove St, Los Angeles',
-      phone: '320 321 4560',
-    },
-    {
-      date: '2016-05-02',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-04',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-01',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-  ]
 
   //ENDPOINTS
 
   const saveData= async()=>{
 
     const validation = await formRef.value?.validateForm()
-
-    if(validation){
+    if (validation) {
       await createPerson()
     }
   }
 
+  const actualizarDatos= async()=>{
+    const validation = await formRef.value?.validateForm()
+    if (validation) {
+      await updatePerson()
+    }
+  }
+
+  //create
   const createPerson= async()=>{
 
     const url='http://127.0.0.1:8000/api/persona/guardar'
@@ -145,29 +135,114 @@
     
 
   }
-  
+
+  //update
   const updatePerson= async()=>{
-    console.log("datos de persona actualizados")
+    
+    const url= 'http://127.0.0.1:8000/api/persona/actualizar'
+
+    const dataForm= {
+      id:dataPersonById.value[0].id,
+      nombre: formRef.value.form.name,
+      apellido: formRef.value.form.lastName,
+      edad: formRef.value.form.age,
+      peso: formRef.value.form.weight,
+      altura: formRef.value.form.height
+    }
+    try {
+      axios.put(url, dataForm)
+      .then(function(response) {
+        console.log(response);
+        formRef.value?.formClear()
+        ElMessage({
+          message: 'El perfil se actualizó exitosamente',
+          type: 'success',
+        })
+        dataPerson()
+        showForm.value= false
+
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+
+    } catch (error) {
+      console.error('error al crear perfil', error)
+    }
+
   }
 
-  const deletePerson= async()=>{
-    console.log("perfil eliminado")
+  const dataById= async(id)=>{
+
+    const url='http://127.0.0.1:8000/api/persona/datosById'
+
+    try {
+      const response= axios.get(url, {
+        params:{
+          id: id
+        }
+      })
+      return (await response).data.result
+
+    } catch (error) {
+      console.error('Error al crear perfil ', error)
+    }
   }
+
+  //delete
+  const deletePerson= async(id)=>{
+
+    const url='http://127.0.0.1:8000/api/persona/eliminar'
+
+    ElMessageBox.confirm(
+    '¿Esta seguro de eliminar este perfil?',
+    'Eliminar registro',
+    {
+      confirmButtonText: 'Si',
+      cancelButtonText: 'Cancelar',
+      type: 'warning',
+    }
+  )
+    .then(() => {
+
+      try{
+      axios.delete(url,  {data:{id}})
+      .then(function(response){
+        getData()
+      })
+      .catch(function(error){
+        console.log(error)
+      })
+    }
+    catch{
+      console.error("error al crear perfil", error)
+    }
+
+      ElMessage({
+        type: 'success',
+        message: 'Se eliminó correctamente.',
+      })
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: 'Eliminación cancelada.',
+      })
+    })
+  }
+  
   
   const dataPerson= async()=>{
-    console.log("Datos del perfil")
-  }
 
-  /* const dataArea= async()=>{
-    
-    const url='http://127.0.0.1:8000/api/persona/guardar'
+    const url='http://127.0.0.1:8000/api/persona/datos'
 
     try{
       axios.get(url)
       .then(function(response){
-
-  
+        personaTabla.value=response.data.result
+        console.log(response)
       })
+
       .catch(function(error){
   
       })
@@ -175,9 +250,32 @@
     catch{
       console.error("error al crear perfil", error)
     }
-    
-  } */
+  }
 
+  const getData= async()=>{
+
+    const url='http://127.0.0.1:8000/api/persona/datos'
+
+    try{
+      axios.get(url)
+      .then(function(response){
+        datosPersona.value=response.data
+        //console.log(response)
+      })
+
+      .catch(function(error){
+  
+      })
+    }
+    catch{
+      console.error("error al crear perfil", error)
+    }
+  }
+
+  onMounted(()=>{
+    getData()
+    dataPerson()
+  })
 </script>
     
   

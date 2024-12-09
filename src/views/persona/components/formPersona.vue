@@ -40,7 +40,11 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
+
+const propiedad=defineProps({
+  dataValue: Object,
+})
 
 const formSize = ref("default");
 const formRef = ref();
@@ -51,6 +55,16 @@ const form = reactive({
   weight: "",
   height: "",
 });
+
+const datosFormulario= ()=>{
+
+  form.name= propiedad.dataValue[0].nombre;
+  form.lastName= propiedad.dataValue[0].apellido;
+  form.age= propiedad.dataValue[0].edad;
+  form.weight= propiedad.dataValue[0].peso;
+  form.height= propiedad.dataValue[0].altura;
+  
+};
 
 const rules = reactive({
   name: [
@@ -122,14 +136,18 @@ const validateForm = () => {
 };
 
 defineExpose({ validateForm, form, formClear });
+
+watch(
+  ()=>propiedad.dataValue,
+  (newData)=>{
+    console.log('datos recibidos AÑA ', newData)
+    datosFormulario()
+  }
+)
 </script>
 
 <style scoped>
-.formBox {
-  margin-left: 120px;
-  margin-right: 120px;
-  max-width: 100%;
-}
+
 
 /* posicion de la card*/
 .formCSS {
