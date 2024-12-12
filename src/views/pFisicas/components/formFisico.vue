@@ -25,7 +25,11 @@
                   una lesion muscular.
                 </p>
               </el-alert>
-              <el-form-item label="Tiempo utilizado:" prop="sprint40" class="selecFormat">
+              <el-form-item
+                label="Tiempo utilizado:"
+                prop="sprint40"
+                class="selecFormat"
+              >
                 <el-input
                   placeholder="Introduzca el tiempo en segundos"
                   v-model="form.sprint40"
@@ -44,7 +48,11 @@
                   lesión.
                 </p>
               </el-alert>
-              <el-form-item label="Tiempo utilizado:" prop="sprint30" class="selecFormat">
+              <el-form-item
+                label="Tiempo utilizado:"
+                prop="sprint30"
+                class="selecFormat"
+              >
                 <el-input
                   placeholder="Introduzca el tiempo en segundos"
                   v-model="form.sprint30"
@@ -65,7 +73,11 @@
                   o forzar las rodillas.
                 </p>
               </el-alert>
-              <el-form-item label="Peso utilizado:" prop="pesoMuerto" class="selecFormat">
+              <el-form-item
+                label="Peso utilizado:"
+                prop="pesoMuerto"
+                class="selecFormat"
+              >
                 <el-input
                   placeholder="Ingrese el peso utilizado"
                   v-model="form.pesoMuerto"
@@ -111,31 +123,11 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese el inicio y tiempo final:"
+                label="Ingrese los segundos requeridos:"
                 prop="agilidadT"
                 class="selecFormat"
               >
-                <div class="demo-time-range">
-                  <el-time-select
-                    v-model="form.agilidadT.start"
-                    style="width: 240px"
-                    :max-time="endTime"
-                    class="mr-4"
-                    placeholder="Inicio del ejercicio"
-                    start="08:30"
-                    step="00:15"
-                    end="18:30"
-                  />
-                  <el-time-select
-                    v-model="form.agilidadT.end"
-                    style="width: 240px"
-                    :min-time="startTime"
-                    placeholder="Fin del ejercicio"
-                    start="08:30"
-                    step="00:15"
-                    end="18:30"
-                  />
-                </div>
+                <el-input placeholder="0" v-model="form.agilidadT" />
               </el-form-item>
             </el-space>
 
@@ -153,31 +145,11 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese el inicio y fin del ejercicio:"
+                label="Ingrese los segundos requeridos:"
                 prop="agilidadL"
                 class="selecFormat"
               >
-                <div class="demo-time-range">
-                  <el-time-select
-                    v-model="form.agilidadL.start"
-                    style="width: 240px"
-                    :max-time="endTime"
-                    class="mr-4"
-                    placeholder="Inicio del ejercicio"
-                    start="08:30"
-                    step="00:15"
-                    end="18:30"
-                  />
-                  <el-time-select
-                    v-model="form.agilidadL.end"
-                    style="width: 240px"
-                    :min-time="startTime"
-                    placeholder="Fin del ejercicio"
-                    start="08:30"
-                    step="00:15"
-                    end="18:30"
-                  />
-                </div>
+                <el-input placeholder="0" v-model="form.agilidadL" />
               </el-form-item>
             </el-space>
 
@@ -193,16 +165,24 @@
                   medir la distancia alcanzada.
                 </p>
               </el-alert>
-              <el-form-item label="Seleccione una opción:" prop="flexTronco"  class="selecFormat">
-                  <el-select v-model="form.flexTronco" placeholder="¿Cuanto esfuerto le tomo?" clearable>
-                    <el-option
+              <el-form-item
+                label="Seleccione una opción:"
+                prop="flexTronco"
+                class="selecFormat"
+              >
+                <el-select
+                  v-model="form.flexTronco"
+                  placeholder="¿Cuanto esfuerto le tomo?"
+                  clearable
+                >
+                  <el-option
                     v-for="number in 10"
                     :key="number"
                     :label="`${number}`"
                     :value="number"
-                    />
-                  </el-select>
-                </el-form-item>
+                  />
+                </el-select>
+              </el-form-item>
             </el-space>
 
             <el-space fill>
@@ -221,7 +201,11 @@
                 prop="flexPiernas"
                 class="selecFormat"
               >
-                <el-select placeholder="¿Cuantos grados pudo flexionarse?" clearable>
+                <el-select
+                  placeholder="¿Cuantos grados pudo flexionarse?"
+                  v-model="form.flexPiernas"
+                  clearable
+                >
                   <el-option label="Menos de 45°" value="44" />
                   <el-option label="Entre 45° y 70°" value="65" />
                   <el-option label="Más de 70°" value="71" />
@@ -264,7 +248,7 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Mida e ingrese la distancia del salto en cm:"
+                label="Mida e ingrese la distancia del salto en metros:"
                 prop="saltoHorizontal"
                 class="selecFormat"
               >
@@ -279,7 +263,11 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
+
+const propiedad = defineProps({
+  dataValue: Object,
+});
 
 const formSize = ref("default");
 const formRef = ref();
@@ -288,59 +276,67 @@ const form = reactive({
   sprint30: "",
   pesoMuerto: "",
   sentadillas: "",
-  agilidadT: {
-    start: "",
-    end: ""
-  },
-  agilidadL: {
-    start: "",
-    end: ""
-  },
-  flexTronco:"",
-  flexPiernas:"",
-  saltoVertical:"",
-  saltoHorizontal:""
-
+  agilidadT: "",
+  agilidadL: "",
+  flexTronco: null,
+  flexPiernas: null,
+  saltoVertical: "",
+  saltoHorizontal: "",
 });
+
+const datosFormulario = () => {
+  form.sprint40 = propiedad.dataValue[0].sprint_40m;
+  form.sprint30 = propiedad.dataValue[0].sprint_30m;
+  form.pesoMuerto = propiedad.dataValue[0].peso_muerto;
+  form.sentadillas = propiedad.dataValue[0].sentadillas;
+  form.agilidadT = propiedad.dataValue[0].agilidad_t;
+  form.agilidadL = propiedad.dataValue[0].agilidad_l;
+  form.flexTronco = propiedad.dataValue[0].flex_tronco;
+  form.flexPiernas = propiedad.dataValue[0].isquiotibiales;
+  form.saltoVertical = propiedad.dataValue[0].salto_vertical;
+  form.saltoHorizontal = propiedad.dataValue[0].salto_horizontal;
+};
 
 const rules = reactive({
   sprint40: [
     {
       required: false,
-      message: "Introduzca un tiempo valido, por favor",
       trigger: "blur",
     },
     {
       min: 1,
-      max: 3,
-      message: "El tiempo debe ser de minimo 3 caracteres",
+      max: 2,
+      message: "Introduzca un rango valido '1-2 caracteres'",
       trigger: "blur",
     },
   ],
+
   sprint30: [
     {
       required: false,
-      message: "Introduzca un tiempo valido, por favor",
       trigger: "blur",
     },
     {
       min: 1,
-      max: 3,
-      message: "El tiempo debe ser de minimo 3 caracteres",
+      max: 2,
+      message: "El tiempo debe ser de minimo 2 caracteres",
       trigger: "blur",
     },
   ],
+
   pesoMuerto: [
     {
       required: false,
-      message: "",
       trigger: "blur",
     },
     {
+      min: 2,
+      max: 2,
       message: "Ingrese un peso valido",
       trigger: "blur",
     },
   ],
+
   sentadillas: [
     {
       required: false,
@@ -348,11 +344,91 @@ const rules = reactive({
       trigger: "blur",
     },
     {
-      message: "",
+      min: 1,
+      max: 2,
+      message: "Ingrese un número de repeticiones valido",
+      trigger: "blur",
+    },
+  ],
+
+  agilidadT: [
+    {
+      required: false,
+      trigger: "blur",
+    },
+    {
+      min: 1,
+      max: 2,
+      message: "Introduzca un rango valido '1-2 caracteres'",
+      trigger: "blur",
+    },
+  ],
+
+  agilidadL: [
+    {
+      required: false,
+      trigger: "blur",
+    },
+    {
+      min: 1,
+      max: 2,
+      message: "Introduzca un rango valido '1-2 caracteres'",
+      trigger: "blur",
+    },
+  ],
+
+  saltoVertical: [
+    {
+      required: false,
+      trigger: "blur",
+    },
+    {
+      min: 2,
+      max: 2,
+      message: "Introduzca un rango valido '1-2 caracteres'",
+      trigger: "blur",
+    },
+  ],
+
+  saltoHorizontal: [
+    {
+      required: false,
+      trigger: "blur",
+    },
+    {
+      min: 1,
+      max: 3,
+      message: "Introduzca un rango valido '1-2 caracteres'",
       trigger: "blur",
     },
   ],
 });
+
+const formClear = () => {
+  formRef.value.resetFields();
+};
+
+const validateForm = () => {
+  return new Promise((resolve) => {
+    formRef.value?.validate((valid) => {
+      if (valid) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+defineExpose({ validateForm, form, formClear });
+
+watch(
+  () => propiedad.dataValue,
+  (newData) => {
+    console.log("datos recibidos AÑA ", newData);
+    datosFormulario();
+  }
+);
 </script>
 
 <style scoped>
