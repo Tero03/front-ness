@@ -104,7 +104,7 @@
 
     const url='http://127.0.0.1:8000/api/persona/guardar'
 
-    //Los datos de formPaises vienen y se guardan en esta variable
+    //Los datos de formPersona vienen y se guardan en esta variable
     const dataForm={
       nombre: formRef.value?.form.name,
       apellido: formRef.value?.form.lastName,

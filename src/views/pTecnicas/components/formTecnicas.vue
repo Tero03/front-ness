@@ -29,33 +29,22 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese los tiros realizados:"
-                prop="centroRemates.tiros"
+                label="¿Como fue su rendimiento?"
                 class="selecFormat"
-              >
-                <el-input
-                  placeholder="Tiros hechos"
-                  v-model="form.centroRemates.tiros"
-                />
-              </el-form-item>
-              <el-form-item
-                label="¿Cuántos aciertos realizó en los tiros hechos?"
-                class="selecFormat"
-                prop="centroRemates.precision"
+                prop="centroRemates"
               >
                 <el-select
                   placeholder="Seleccione una opción"
                   clearable
-                  v-model="form.centroRemates.precision"
+                  v-model="form.centroRemates"
                 >
-                  <el-option label="Acerté todas" value="100" />
-                  <el-option label="Más del 75%" value="75" />
-                  <el-option label="Menos del 75%" value="74" />
-                  <el-option label="Más del 50%" value="50" />
-                  <el-option label="Menos del 50%" value="49" />
-                  <el-option label="Solo el 25%" value="25" />
-                  <el-option label="Menos del 25%" value="24" />
-                  <el-option label="No acerté nada" value="0" />
+                  <el-option label="Acerté todos los intenos." value="acerte todos los goles" />
+                  <el-option label="Acerté la gran mayoria de intentos." value="acerte la gran mayoria de intentos" />
+                  <el-option label="Acerté mas de la mitad de intentos." value="acerte mas de la mitad de intentos" />
+                  <el-option label="Acerté la mitad de intentos." value="acerte la mitad de intentos" />
+                  <el-option label="Acerté menos de la mitad de intentos." value="acerte menos de la mitad de intentos" />
+                  <el-option label="Acerté muy pocos goles" value="acerte muy pocos goles." />
+                  <el-option label="No acerté nada" value="no acerte nada" />
                 </el-select>
               </el-form-item>
             </el-space>
@@ -75,14 +64,23 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese los tiros interceptados:"
+                label="¿Como fue su rendimiento?"
                 prop="marcajeIndividual"
                 class="selecFormat"
               >
-                <el-input
-                  placeholder="Tiros bloqueados"
+              <el-select
+                  placeholder="Seleccione una opción"
+                  clearable
                   v-model="form.marcajeIndividual"
-                />
+                >
+                  <el-option label="Acerté todos los intenos." value="acerte todos los goles" />
+                  <el-option label="Acerté la gran mayoria de intentos." value="acerte la gran mayoria de intentos" />
+                  <el-option label="Acerté mas de la mitad de intentos." value="acerte mas de la mitad de intentos" />
+                  <el-option label="Acerté la mitad de intentos." value="acerte la mitad de intentos" />
+                  <el-option label="Acerté menos de la mitad de intentos." value="acerte menos de la mitad de intentos" />
+                  <el-option label="Acerté muy pocos goles" value="acerte muy pocos goles." />
+                  <el-option label="No acerté nada" value="no acerte nada" />
+                </el-select>
               </el-form-item>
             </el-space>
 
@@ -101,31 +99,14 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese el inicio y tiempo final:"
+                label="Ingrese el tiempo en segundos:"
                 prop="dribblingConos"
                 class="selecFormat"
               >
-                <div class="demo-time-range">
-                  <el-time-select
-                    v-model="form.dribblingConos.start"
-                    style="width: 240px"
-                    :max-time="endTime"
-                    class="mr-4"
-                    placeholder="Inicio del ejercicio"
-                    start="08:30"
-                    step="00:15"
-                    end="18:30"
-                  />
-                  <el-time-select
-                    v-model="form.dribblingConos.end"
-                    style="width: 240px"
-                    :min-time="startTime"
-                    placeholder="Fin del ejercicio"
-                    start="08:30"
-                    step="00:15"
-                    end="18:30"
-                  />
-                </div>
+              <el-input
+                  placeholder="0"
+                  v-model="form.dribblingConos"
+                />
               </el-form-item>
             </el-space>
 
@@ -144,31 +125,14 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese el tiempo que tuvo controlado el balon"
+                label="Ingrese el tiempo que tuvo controlado el balon:"
                 prop="dribblingReducido"
                 class="selecFormat"
               >
-                <div class="demo-time-range">
-                  <el-time-select
-                    v-model="form.dribblingReducido.start"
-                    style="width: 240px"
-                    :max-time="endTime"
-                    class="mr-4"
-                    placeholder="Inicio del ejercicio"
-                    start="08:30"
-                    step="00:15"
-                    end="18:30"
-                  />
-                  <el-time-select
-                    v-model="form.dribblingReducido.end"
-                    style="width: 240px"
-                    :min-time="startTime"
-                    placeholder="Fin del ejercicio"
-                    start="08:30"
-                    step="00:15"
-                    end="18:30"
-                  />
-                </div>
+              <el-input
+                  placeholder="0"
+                  v-model="form.dribblingReducido"
+                />
               </el-form-item>
             </el-space>
 
@@ -192,7 +156,7 @@
                 class="selecFormat"
               >
                 <el-input
-                  placeholder="Tiempo necesitado"
+                  placeholder="0"
                   v-model="form.dribblingVelocidad"
                 />
               </el-form-item>
@@ -218,7 +182,7 @@
                 class="selecFormat"
               >
                 <el-input
-                  placeholder="Tiempo requerido"
+                  placeholder="0"
                   v-model="form.dribblingDireccion"
                 />
               </el-form-item>
@@ -239,24 +203,20 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese los tiros realizados:"
+                label="¿Como fue su desempeño?"
                 prop="tirosArco"
                 class="selecFormat"
               >
-                <el-input placeholder="0" v-model="form.tirosArco.total" />
                 <el-select
-                  placeholder="¿Que tan preciso fue?"
-                  v-model="form.tirosArco.aciertos"
+                  placeholder="Seleccione una opción"
+                  v-model="form.tirosArco"
                   clearable
                 >
-                  <el-option label="No acerte ningun gol" value="0" />
-                  <el-option label="Acerte cerca del 25% de goles" value="25" />
-                  <el-option label="Acerte la mitad de goles" value="50" />
-                  <el-option
-                    label="Acerte la gran mayoria de goles"
-                    value="85"
-                  />
-                  <el-option label="Acerte todos los goles" value="100" />
+                <el-option label="Acerté todos los goles." value="acerte todos los goles" />
+                <el-option label="Acerté la gran mayoria de goles." value="acerte la gran mayoria de goles"/>
+                <el-option label="Acerté la mitad de goles." value="acerte la mitad de goles" />
+                <el-option label="Acerté cerca del 25% de goles." value="acerte menos de la mitad de goles" />
+                  <el-option label="No acerté ningun gol." value="no acerte ningun gol" />
                 </el-select>
               </el-form-item>
             </el-space>
@@ -275,42 +235,19 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese los intentos con cada pie:"
+                label="¿Como fue su desempeño?"
                 prop="tirosAngulo"
                 class="selecFormat"
               >
-                <el-input
-                  placeholder="Pie dominante"
-                  v-model="form.tirosAngulo.dominante"
-                />
-                <el-input
-                  placeholder="Pie no dominante"
-                  v-model="form.tirosAngulo.noDominante"
-                />
                 <el-select
-                  placeholder="¿Cuantos aciertos tuvo con el pie dominante?"
-                  v-model="form.tirosAngulo.aciertosDominante"
+                  placeholder="Seleccione una opción"
+                  v-model="form.tirosAngulo"
                   clearable
                 >
-                  <el-option label="No acerte ningun gol" value="0" />
-                  <el-option label="Acerte cerca del 25% de goles" value="25" />
-                  <el-option label="Acerte la mitad de goles" value="50" />
-                  <el-option label="Acerte la gran mayoria de goles" value="85"/>
-                  <el-option label="Acerte todos los goles" value="100" />
-                </el-select>
-                <el-select
-                  placeholder="¿Cuantos aciertos tuvo con el pie no dominante?"
-                  v-model="form.tirosAngulo.aciertosRecesivo"
-                  clearable
-                >
-                  <el-option label="No acerte ningun gol" value="0" />
-                  <el-option label="Acerte cerca del 25% de goles" value="25" />
-                  <el-option label="Acerte la mitad de goles" value="50" />
-                  <el-option
-                    label="Acerte la gran mayoria de goles"
-                    value="85"
-                  />
-                  <el-option label="Acerte todos los goles" value="100" />
+                  <el-option label="Tengo control total con ambos pies." value="tengo control total con ambos pies" />
+                  <el-option label="Tuve mejor rendimiento con mi pie dominante." value="tuve mejor rendimiento con mi pie dominante" />
+                  <el-option label="No tengo tanto control con mi pie dominante." value="no tengo tanto control con mi pie dominante" />
+                  <el-option label="No tengo control con ninguno de mis pies." value="No tengo control con ninguno de mis pies"/>
                 </el-select>
               </el-form-item>
             </el-space>
@@ -331,27 +268,20 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese los tiros realizados:"
+                label="¿Como fue su desempeño?"
                 prop="tirosPrecision"
                 class="selecFormat"
               >
-                <el-input
-                  placeholder="0"
-                  v-model="form.tirosPrecision.tirosEsquinas"
-                />
                 <el-select
-                  placeholder="¿Cuantos aciertos tuvo a las esquinas de la porteria?"
-                  v-model="form.tirosPrecision.aciertosEsquinas"
+                  placeholder="Seleccione una opción"
+                  v-model="form.tirosPrecision"
                   clearable
                 >
-                  <el-option label="No acerte ningun gol" value="0" />
-                  <el-option label="Acerte cerca del 25% de goles" value="25" />
-                  <el-option label="Acerte la mitad de goles" value="50" />
-                  <el-option
-                    label="Acerte la gran mayoria de goles"
-                    value="85"
-                  />
-                  <el-option label="Acerte todos los goles" value="100" />
+                  <el-option label="Todos mis intentos fueron exitosos." value="todos mis intentos fueron exitosos" />
+                  <el-option label="Acerté la gran mayoria de tiros." value="acerte la gran mayoria de tiros" />
+                  <el-option label="Acerté la mitad de mis intentos." value="acerte la mitad de mis intentos" />
+                  <el-option label="Acerte menos de la mitad de mis intentos." value="acerte menos de la mitad de mis intentos" />
+                  <el-option label="Fallé en todos mis intentos." value="falle en todos mis intentos" />
                 </el-select>
               </el-form-item>
             </el-space>
@@ -370,27 +300,20 @@
                 </p>
               </el-alert>
               <el-form-item
-                label="Ingrese los intentos realizados:"
+                label="¿Cómo fue su desempeño?"
                 prop="tirosMovimiento"
                 class="selecFormat"
               >
-                <el-input
-                  placeholder="Tiros bloqueados"
-                  v-model="form.tirosMovimiento.tiros"
-                />
                 <el-select
-                  placeholder="¿Cuantos aciertos tuvo?"
-                  v-model="form.tirosMovimiento.aciertos"
+                  placeholder="Seleccione una opción"
+                  v-model="form.tirosMovimiento"
                   clearable
                 >
-                  <el-option label="No acerte ningun gol" value="0" />
-                  <el-option label="Acerte cerca del 25% de goles" value="25" />
-                  <el-option label="Acerte la mitad de goles" value="50" />
-                  <el-option
-                    label="Acerte la gran mayoria de goles"
-                    value="85"
-                  />
-                  <el-option label="Acerte todos los goles" value="100" />
+                  <el-option label="No perdi el balón mientras me movia." value="no perdi el balon mientras me movia" />
+                  <el-option label="Casi nunca perdi el balon." value="casi nunca perdi el balon" />
+                  <el-option label="Aveces perdia el balon." value="aveces perdia el balon" />
+                  <el-option label="Perdia muchas veces el balon." value="perdia muchas veces el balon" />
+                  <el-option label="Perdí siempre el balon" value="perdi siempre el balon" />
                 </el-select>
               </el-form-item>
             </el-space>
@@ -402,82 +325,81 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
+
+const propiedad = defineProps({
+  dataValue: Object,
+});
 
 const formSize = ref("default");
 const formRef = ref();
 const form = reactive({
-  centroRemates: {
-    tiros: "",
-    precision: "",
-  },
-  marcajeIndividual: "",
+  centroRemates:null,
 
-  dribblingConos: {
-    start: "",
-    end: "",
-  },
-  dribblingReducido: {
-    start: "",
-    end: "",
-  },
+  marcajeIndividual: null,
+
+  dribblingConos: "",
+
+  dribblingReducido: "",
 
   dribblingVelocidad: "",
 
   dribblingDireccion: "",
 
-  tirosArco: {
-    total: "",
-    aciertos: "",
-  },
-  tirosAngulo: {
-    dominante: "",
-    noDominante: "",
-    aciertosDominante: null,
-    aciertosRecesivo: null,
-  },
-  tirosPrecision: {
-    tirosEsquinas: "",
-    aciertosEsquinas: null,
-  },
-  tirosMovimiento: {
-    tiros: "",
-    aciertos: null,
-  },
+  tirosArco: null,
+
+  tirosAngulo: null,
+
+  tirosPrecision:null,
+
+  tirosMovimiento: null
 });
 
+//Obtains the data from the data base
+const datosFormulario = () => {
+  form.centroRemates = propiedad.dataValue[0].centros_remates_delanteros_extremos;
+  form.marcajeIndividual = propiedad.dataValue[0].marcaje_individual_zonal;
+  form.dribblingConos = propiedad.dataValue[0].dribbling_conos;
+  form.dribblingReducido = propiedad.dataValue[0].dribbling_espacio_reducido;
+  form.dribblingVelocidad = propiedad.dataValue[0].dribbling_velocidad_maxima;
+  form.dribblingDireccion = propiedad.dataValue[0].dribbling_cambio_direccionYritmo;
+  form.tirosArco = propiedad.dataValue[0].tiro_arco_distancia;
+  form.tirosAngulo = propiedad.dataValue[0].tiro_arco_angulo;
+  form.tirosPrecision = propiedad.dataValue[0].tiro_arco_precision_potencia;
+  form.tirosMovimiento = propiedad.dataValue[0].tiro_arco_movimiento;
+  
+};
+
+//Cleans form fields
+const formClear = () => {
+  formRef.value.resetFields();
+};
+
+//validates if the form fields are valid
+const validateForm = () => {
+  return new Promise((resolve) => {
+    formRef.value?.validate((valid) => {
+      if (valid) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+defineExpose({ validateForm, form, formClear });
+
+watch(
+  () => propiedad.dataValue,
+  (newData) => {
+    console.log("datos recibidos AÑA ", newData);
+    datosFormulario();
+  }
+);
+
 const rules = reactive({
-  "centroRemates.tiros": [
-    {
-      required: true,
-      message: "Por favor, ingrese la cantidad de tiros realizados.",
-      trigger: "blur",
-    },
-    {
-      pattern: /^[0-9]+$/,
-      message: "Ingrese un número válido (solo dígitos).",
-      trigger: "blur",
-    },
-  ],
-  "centroRemates.precision": [
-    {
-      required: true,
-      message: "Por favor, seleccione una opción de precisión",
-      trigger: "change",
-    },
-  ],
-  marcajeIndividual: [
-    {
-      required: true,
-      message: "Por favor, ingrese sus tiros bloqueados",
-      trigger: "blur",
-    },
-    {
-      pattern: /^[0-9]+$/,
-      message: "Ingrese un número",
-      trigger: "blur",
-    },
-  ],
+  
 });
 </script>
 
